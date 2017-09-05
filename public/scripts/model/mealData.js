@@ -3,6 +3,7 @@
 var app = app || {};
 
 (function(module) {
+
   function Mealdata(rawDataObj) {
     Object.keys(rawDataObj).forEach(key => this[key] = rawDataObj[key]);
   }
@@ -14,6 +15,7 @@ var app = app || {};
     $.getJSON('https://data.seattle.gov/resource/47rs-c243.json', function(data) {
       console.log(data);
     });
+
   };
 
   Mealdata.getGoogleData = function() {
