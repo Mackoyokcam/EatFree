@@ -1,0 +1,26 @@
+{
+  "name": "eatfreeseattle",
+  "version": "1.0.0",
+  "description": "Code-301 final project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mackoyokcam/EatFreeSeattle.git"
+  },
+  "author": "Mark, George, Powen, Vitaliy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mackoyokcam/EatFreeSeattle/issues"
+  },
+  "homepage": "https://github.com/Mackoyokcam/EatFreeSeattle#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "express-request-proxy": "^2.0.0",
+    "pg": "^7.3.0"
+  }
+}
