@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 @media screen and (min-width: 700px){
     header {
@@ -24,4 +25,21 @@
       margin-right: auto;
     }
 
+=======
+header h1 {
+  float: left;
+  font-size: 2em;
+  font-family: 'Baloo Tammudu', cursive;
+  position: relative;
+}
+
+nav ul li {
+  display: inline;
+  margin-left: 2em;
+}
+
+legend {
+  font-size: 3em;
+  color: white;
+>>>>>>> b29e57afcf39bc4657b3092d1370ee13b9222d6e
 }
