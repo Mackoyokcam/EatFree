@@ -15,28 +15,34 @@
         <h1>Eat Free Seattle</h1>
         <nav>
           <ul>
-            <li>About</li>
+            <li><a href="#">About</a></li>
             <li>Careers</li>
             <li>API usage</li>
           </ul>
         </nav>
       </header>
       <section>
-        <form>
+        <form id="form">
          <fieldset>
           <legend>Find your free meal</legend>
-            <input type="text">
+            <input type="text" name="location"><br>
+            <input type="submit">
          </fieldset>
         </form>
       </section>
       <footer></footer>
     </main>
+    <div id="map"></div>
     <footer></footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/vendor/scripts/page.js"></script>
-    <script src="/scripts/controllers/routes.js"></script>
-    <script src="/scripts/controllers/searchControllers.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZEFFE_cWuSzqHs2q8ABdYgi5hIYv12O8"></script>
+    <script src="/scripts/model/maps.js"></script>
+    <script src="/scripts/controllers/indexController.js"></script>
+    <script src="/scripts/controllers/searchController.js"></script>
     <script src="/scripts/model/mealData.js"></script>
+    <script src="/scripts/view/searchView.js"></script>
+    <script src="/scripts/controllers/routes.js"></script>
 
   </body>
 </html>
