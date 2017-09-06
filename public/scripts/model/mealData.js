@@ -10,12 +10,15 @@ var app = app || {};
 
   Mealdata.all = [];
 
-  Mealdata.getMealData = function() {
-    // $.get('/data', callback); //talk to george about that
-    $.getJSON('https://data.seattle.gov/resource/47rs-c243.json', function(data) {
+  Mealdata.getMealData = function(callback) {
+      // this is working
+     $.get('/data');
+     .then(data => Mealdata.all = data, err => console.error(err))
+     .then(callback);
+     // not sure why this is needed?
+    /*$.getJSON('https://data.seattle.gov/resource/47rs-c243.json', function(data) {
       console.log(data);
-    });
-
+    });*/
   };
 
   Mealdata.getGoogleData = function() {

@@ -8,6 +8,7 @@ var app = app || {};
 
   searchController.index = function() {
     app.searchView.index();
+    app.Mealdata.getMealData(app.searchView.index);
   }
 
   searchController.getData = function(ctx) {
