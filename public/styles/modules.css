@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-
-@media screen and (min-width: 700px){
+/*@media screen and (min-width: 700px){
     header {
       height: 100px;
       width: 95%;
@@ -23,9 +21,8 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
-    }
+    }*/
 
-=======
 header h1 {
   float: left;
   font-size: 2em;
@@ -41,5 +38,4 @@ nav ul li {
 legend {
   font-size: 3em;
   color: white;
->>>>>>> b29e57afcf39bc4657b3092d1370ee13b9222d6e
 }
