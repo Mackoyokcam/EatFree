@@ -3,10 +3,10 @@
 
 var app = app || {};
 
-$.ajax({
+/*$.ajax({
 	url: '', //google api
 	method:'GET',
 	headers: {
 		Authorization: '' //token goes here
 	}
-}).then(data =>);
+}).then(data =>);*/
