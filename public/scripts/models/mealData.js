@@ -3,26 +3,20 @@
 var app = app || {};
 
 (function(module) {
-
-  function Mealdata(rawDataObj) {
-    Object.keys(rawDataObj).forEach(key => this[key] = rawDataObj[key]);
-  }
-  // I think this is needed
-  //const Mealdata = {};
-
+  const Mealdata = {};
   Mealdata.all = [];
 
   Mealdata.getMealData = function(callback) {
       // this is working
-     $.get('/data');
+     $.get('/data/')
      .then(data => Mealdata.all = data, err => console.error(err))
      .then(callback);
-     // not sure why this is needed?
+     // TEST
     /*$.getJSON('https://data.seattle.gov/resource/47rs-c243.json', function(data) {
       console.log(data);
     });*/
   };
-
+// TEST
   Mealdata.getGoogleData = function() {
     $.get('/data', function(data) {
       console.log(data);

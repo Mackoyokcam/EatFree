@@ -13,7 +13,7 @@ function proxySeattle(request, response){
     url: 'https://data.seattle.gov/resource/47rs-c243.json',
     headers: {
       '$limit' : 5000,
-      '$$app_token' : '${process.env.SEATTLE_TOKEN}'}
+      '$$app_token' : `${process.env.SEATTLE_TOKEN}`}
   }))(request, response);
 }
 
