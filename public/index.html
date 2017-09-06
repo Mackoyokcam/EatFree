@@ -4,19 +4,20 @@
     <meta charset="utf-8">
     <title>EatFreeSeattle</title>
     <link rel="stylesheet" href="/vendor/styles/reset.css" />
-    <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather|Baloo+Tammudu|Sanchez|Mukta+Mahee" rel="stylesheet">
     <link rel="stylesheet" href="/styles/base.css" />
     <link rel="stylesheet" href="/styles/layout.css" />
     <link rel="stylesheet" href="/styles/modules.css" />
   </head>
   <body>
     <header>
-      <h1>Eat Me, Seattle</h1>
       <div class="fa fa-bars"></div>
     </header>
     <main>
       <header>
-        <h1>Eat Free Seattle</h1>
+        <div id="logo">
+          <h1>Eat Free Seattle</h1>
+        </div>
         <nav>
           <ul>
             <li><a href="#">About</a></li>
@@ -29,8 +30,8 @@
         <form id="form">
          <fieldset>
           <legend>Find your free meal</legend>
-            <input type="text" name="location"><br>
-            <input type="submit">
+            <input type="text" name="location" placeholder="Enter an address, city, or ZIP code"><br>
+            <input class="button" type="submit">
          </fieldset>
         </form>
       </section>
