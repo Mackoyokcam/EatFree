@@ -93,9 +93,9 @@ input[type="text"]:focus {
 
   }
 
-main footer {
-  display: none;
-}
+  main footer {
+    display: none;
+  }
 
   .icon-menu {
     float: right;
@@ -112,5 +112,9 @@ main footer {
     margin-top: 3px;
     background-color: white;
   }
+
+  /*nav ul li {
+    display: block;
+  }*/
 
 }
