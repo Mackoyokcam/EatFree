@@ -7,13 +7,13 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static('./public'));
 
-app.get('/data/*', proxySeattle);
+app.get('/data', proxySeattle);
 function proxySeattle(request, response){
   (requestProxy({
     url: 'https://data.seattle.gov/resource/47rs-c243.json',
     headers: {
       '$limit' : 5000,
-      '$$app_token' : '${process.env.SEATTLE_TOKEN}'}
+      '$$app_token' : `${process.env.SEATTLE_TOKEN}`}
   }))(request, response);
 }
 

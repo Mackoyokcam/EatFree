@@ -12,7 +12,12 @@ var app = app || {};
   }
 
   searchView.getData = function() {
-    app.Mealdata.getMealData();
+    app.Mealdata.getMealData(function() {
+      // centerOnLocation(app.Mealdata.all[0].location);
+      for(let key in app.Mealdata.all['google']) {
+        centerOnLocation(app.Mealdata.all['google'][key]);
+      }
+    });
   }
 
   module.searchView = searchView;
