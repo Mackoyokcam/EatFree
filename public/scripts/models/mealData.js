@@ -7,6 +7,8 @@ var app = app || {};
   function Mealdata(rawDataObj) {
     Object.keys(rawDataObj).forEach(key => this[key] = rawDataObj[key]);
   }
+  // I think this is needed
+  //const Mealdata = {};
 
   Mealdata.all = [];
 
