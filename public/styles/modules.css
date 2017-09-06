@@ -19,6 +19,7 @@ header #logo {
 
 nav ul {
   float: right;
+  /*display: block;*/
 }
 
 nav ul li {
@@ -74,6 +75,9 @@ input[type="text"]:focus {
     border-radius: 10px;
 }
 
+.show {
+  display: inline;
+}
 
 @media screen and (max-width: 700px){
   body {
@@ -85,12 +89,13 @@ input[type="text"]:focus {
 
   header #logo {
     display: none;
-
   }
-
   ul {
     display: none;
+  }
 
+  .show {
+    display: inline;
   }
 
   main footer {
@@ -112,9 +117,5 @@ input[type="text"]:focus {
     margin-top: 3px;
     background-color: white;
   }
-
-  /*nav ul li {
-    display: block;
-  }*/
 
 }
