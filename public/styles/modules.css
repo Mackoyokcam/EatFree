@@ -76,6 +76,13 @@ input[type="text"]:focus {
 
 
 @media screen and (max-width: 700px){
+  body {
+    width: 95%;
+    height: 80%;
+    display: block;
+    margin: auto;
+  }
+
   header #logo {
     display: none;
 
@@ -85,6 +92,10 @@ input[type="text"]:focus {
     display: none;
 
   }
+
+main footer {
+  display: none;
+}
 
   .icon-menu {
     float: right;
