@@ -18,7 +18,9 @@ a {
 }
 
 #map {
-  height: 100%;
-  margin: 0;
-  display: none;
+  height: 800px;
+  width: 80%;
+  margin: 0px auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
 }
