@@ -113,7 +113,7 @@
     text-align: right;
     top: 80px;
     display: inline;
-    animation: 5s animeShow;
+    animation: 500 animeShow;
   }
 
   main footer {
