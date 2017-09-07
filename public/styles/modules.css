@@ -83,7 +83,7 @@
     border: none;
     border-radius: 10px;
   }
-  div div {
+  .icon-menu {
     display: none;
   }
   .show {
