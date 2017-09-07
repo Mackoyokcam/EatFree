@@ -166,9 +166,9 @@ function loadDB() {
     CREATE TABLE IF NOT EXISTS
     meals (
       meal_id SERIAL PRIMARY KEY,
-      day_time VARCHAR(60),
+      day_time VARCHAR(255),
       location VARCHAR(255),
-      meal_served VARCHAR(20),
+      meal_served VARCHAR(255),
       name_of_program VARCHAR(255) NOT NULL,
       people_served VARCHAR(255),
       latitude VARCHAR(255),
@@ -176,7 +176,7 @@ function loadDB() {
     );`
   )
   // TODO this will take us to load data into the database above here
-  //.then(loadMeals)
+  .then(loadMeals)
   .then(console.log("load complete?"))
   .catch(console.error);
 }
