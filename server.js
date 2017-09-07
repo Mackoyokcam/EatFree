@@ -154,13 +154,16 @@ function loadMeals() {
 }
 
 function cleanMeals() {
-  DELETE FROM meals
-  WHERE meal_id IN (SELECT meal_id
-    FROM (SELECT meal_id,
-      ROW_NUMBER() OVER (partition BY name_of_program, meal_served,
-        ORDER BY meal_id) AS rnum
-        FROM meals) t
-        WHERE t.rnum > 1);
+  client.query(`
+    DELETE FROM meals
+    WHERE meal_id IN (SELECT meal_id
+      FROM (SELECT meal_id,
+        ROW_NUMBER() OVER (partition BY name_of_program, meal_served
+          ORDER BY meal_id) AS rnum
+          FROM meals) t
+          WHERE t.rnum > 1);`
+        )
+        .catch(console.error);
       }
 // this function creates the database table (if needed) and loads it from our data
 function loadDB() {
