@@ -19,6 +19,7 @@ client.on('error', err => console.error(err));
 
 app.use(express.static('./public'));
 
+// Change this to an interval that invokes daily.
 app.get('/data', proxySeattle, proxyGeocode);
 
 function proxySeattle() {
