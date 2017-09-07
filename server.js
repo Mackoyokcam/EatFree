@@ -3,13 +3,9 @@
 const fs = require('fs');
 const pg = require('pg');
 const express = require('express');
-// const requestProxy = require('express-request-proxy');
-// const nocache = require('superagent-no-cache');
 const request = require('superagent');
 const Throttle = require('superagent-throttle');
-// const prefix = require('superagent-prefix')('/static');
 const app = express();
-// const request = require('request');
 const PORT = process.env.PORT || 3000;
 // connection string to connect to the database locally or deployed
 const conString = process.env.DATABASE_URL || 'postgres://postgres:kilovoltdb@localhost:5432/eatfreeseattle';
@@ -21,19 +17,17 @@ client.connect();
 // if we don't sucessfully connect, print an error on the server
 client.on('error', err => console.error(err));
 
-var mainData;
-
 app.use(express.static('./public'));
 
 app.get('/data', proxySeattle, proxyGeocode);
 
-function proxySeattle(next) {
+function proxySeattle() {
+  clearTable();
   request
   .get('https://data.seattle.gov/resource/47rs-c243.json')
   .set('$limit', 5000)
   .set('$$app_token', `${process.env.SEATTLE_TOKEN}`)
   .end((err, res) => {
-    mainData = res.body;
     console.log(res.body[0]);
     proxyGeocode(res.body);
   });
@@ -52,22 +46,29 @@ function proxyGeocode(data) {
   data.forEach(el => {
     if (el.location) {
       let location = el.location.replace(/\s+/g, '+');
-      let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEOCODE_TOKEN}`;
+      let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEOCODE_TOKEN}&sensor=false`;
       console.log(url);
       request
       .get(url)
       .use(throttle.plugin())
       .end((err, res) => {
         if(res.body.status === 'OK') {
-          console.log(res.body.results[0].geometry.location);
-          console.log(err);
+          // console.log(res.body.results[0]);
+          // console.log(`Searched = ${location.split('+').join(' ')}`);
+          // el.location = `${location.split('+').join(' ')}`;
+          el.location = res.body.results[0].formatted_address;
+          el.latitude = res.body.results[0].geometry.location.lat;
+          el.longitude = res.body.results[0].geometry.location.lng;
+          console.log(`Returned: ${JSON.stringify(el)}`);
+          loadMeal(el);
+        } else {
+          console.log(res.body.status);
         }
       })
     } else {
       console.log(el);
     }
   })
-
   console.log(`Size: ${data.length}`);
 }
 
@@ -135,6 +136,31 @@ app.listen(PORT, function() {
 
 // database stuff //
 ////////////////////
+// Clear table
+function clearTable() {
+  client.query('DELETE FROM meals').then(console.log('Cleared Tables'))
+  .catch(console.error);
+}
+
+// Load single meal
+function loadMeal(ele) {
+  console.log('Meal added?');
+  client.query(`
+    INSERT INTO
+    meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
+    VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING`,
+    [
+      ele.day_time,
+      ele.location,
+      ele.meal_served,
+      ele.name_of_program,
+      ele.people_served,
+      ele.latitude,
+      ele.longitude
+    ]
+  )
+  .catch(console.error);
+}
 // this function will load items into the database from either JSON or an array
 // TODO this is still a work in progress
 function loadMeals() {
@@ -177,6 +203,6 @@ function loadDB() {
   )
   // TODO this will take us to load data into the database above here
   .then(loadMeals)
-  .then(console.log("load complete?"))
+  .then(console.log('load complete?'))
   .catch(console.error);
 }
