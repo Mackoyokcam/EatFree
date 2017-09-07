@@ -88,51 +88,6 @@ app.get('/meals/find', (request, response) => {
   .catch(console.error);
 })
 
-<<<<<<< HEAD
-
-// this takes a meal id and updates that row in the database
-app.put('/meals/:id', (request, response) => {
-  client.query(`
-    UPDATE meals
-    SET day_time=$1, location=$2, meal_served =$3, name_of_program=$4, people_served=$5,
-    latitude=$6, longitude=$7,
-    WHERE meal_id=$8
-    `,
-    [
-      request.body.day_time, request.body.location, request.body.meal_served,
-      request.body.name_of_program, request.body.people_served, request.body.latitude,
-      request.body.longitude, request.body.meal_id
-    ]
-  )
-  .then(() => response.send('Update complete'))
-  .catch(console.error);
-});
-
-// for testing
-// this manually adds a meal to the database
-app.post('/meals', function(request, response) {
-  client.query(
-    `INSERT INTO meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
-    VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING`,
-    [
-      request.body.day_time, request.body.location, request.body.meal_served,
-      request.body.name_of_program, request.body.people_served, request.body.latitude,
-      request.body.longitude
-    ],
-    function(err) {
-      if (err) console.error(err)
-      response.send('insert complete');
-    }
-  )});
-
-  app.delete('/meals', (request, response) => {
-    client.query('DELETE FROM meals')
-    .then(() => response.send('Delete complete'))
-    .catch(console.error);
-  });
-
-=======
->>>>>>> 86336dc37bec9324c3fbca1092c1745c7e6e440c
 // loads up the database functions at the bottom of the page
 loadDB();
 
