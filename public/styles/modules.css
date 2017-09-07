@@ -21,9 +21,7 @@
     color: white;
     font-family: 'Baloo Tammudu', cursive;
   }
-  /*ul {
-    float: right;
-  }*/
+
   ul {
     width: 20em;
     font-size: 1.2em;
@@ -34,7 +32,6 @@
     top: 5px;
     right: 10px;
     opacity: .75;
-    /*border: dotted 3px red;*/
   }
 
   li {
@@ -83,101 +80,10 @@
     border: none;
     border-radius: 10px;
   }
-  .icon-menu {
+  .x {
     display: none;
   }
   .show {
     display: inline;
   }
-
-  /*footer {
-    background-color: #0074d9;
-    opacity: .75;
-    width: 100%;
-    height: 5%;
-    position: absolute;
-    bottom: 175px;
-    border: dotted 3px red;
-  }*/
 }
-
-/*@media screen and (max-width: 599px) {*/
-/*body {
-  width: 95%;
-  height: 80%;
-  display: block;
-  margin: auto;
-}*/
-
-/*header #logo {
-  text-align: center;
-  float: left;
-  height: 5em;
-  width: 5em;
-  position: absolute;
-  top: 30px;
-  left: 0px;
-  background-color: #FF851B;
-  padding: 1em;
-  border-radius: 3em;
-  border: 3px solid #FF4136;
-  margin-left: 5%;
-}
-#logo h1 {
-  font-size: 15px;
-  color: white;
-  font-family: 'Baloo Tammudu', cursive;
-}*/
-
-/*legend {
-  font-size: 1em;
-  font-family: 'Merriweather', serif;
-  color: white;
-  padding: .5em;
-  font-weight: bolder;
-  background-color: #0074d9;
-  opacity: .85;
-}*/
-/*ul {
-  display: none;
-}
-@keyframes animeShow {
-  0% {
-    transform: scaleY(0);
-  }
-  100% {
-    transform: scaleY(1);
-  }
-}
-
-.show {
-  position: absolute;
-  right: 10px;
-  text-align: right;
-  top: 60px;
-  display: inline;
-  animation: 500 animeShow;
-}*/
-
-/*main footer {
-  display: none;
-}*/
-
-/*.icon-menu {
-  float: right;
-  margin-top: 15px;
-  margin-right: 10px;
-  width: 2em;
-  height: 2em;
-}
-div div {
-  width: 2em;
-  height: 5px;
-  margin-top: 3px;
-  background-color: white;
-}*/
-  /*.dropDown {
-    display: inline-table;
-  }*/
-  /*animation: */
-/*}*/
