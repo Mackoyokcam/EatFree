@@ -10,7 +10,6 @@ var app = app || {};
     $('#form').on('submit', function(e) {
       e.preventDefault();
       let input = $('input[name="location"]',this).val();
-      // $.get(`/search/${$('#form').serialize()}`);  send to server
       page(`/search/${input}`);
     })
   }
