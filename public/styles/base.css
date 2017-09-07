@@ -25,9 +25,9 @@ a {
 }
 
 #map {
-  height: 800px;
-  width: 80%;
-  margin: 0px auto;
+  height: 100%;
+  width: 100%;
+  /*margin: 0px auto;
   margin-top: 5%;
-  margin-bottom: 5%;
+  margin-bottom: 5%;*/
 }
