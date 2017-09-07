@@ -125,7 +125,6 @@ function loadMeal(ele) {
   .catch(console.error);
 }
 // this function will load items into the database from either JSON or an array
-// TODO this is still a work in progress
 function loadMeals() {
   // need to change this once json is merged
   fs.readFile('./public/data/mealdata.json', (err, fd) => {
@@ -149,6 +148,18 @@ function loadMeals() {
   })
 }
 
+function cleanMeals() {
+  client.query(`
+    DELETE FROM meals
+    WHERE meal_id IN (SELECT meal_id
+      FROM (SELECT meal_id,
+        ROW_NUMBER() OVER (partition BY name_of_program, meal_served
+          ORDER BY meal_id) AS rnum
+          FROM meals) t
+          WHERE t.rnum > 1);`
+        )
+        .catch(console.error);
+      }
 // this function creates the database table (if needed) and loads it from our data
 function loadDB() {
   client.query(`
@@ -166,6 +177,7 @@ function loadDB() {
   )
   // TODO this will take us to load data into the database above here
   .then(loadMeals)
+  .then(cleanMeals)
   .then(console.log('load complete?'))
   .catch(console.error);
 }
