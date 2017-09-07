@@ -13,9 +13,9 @@ var app = app || {};
 
   searchController.getData = function(ctx) {
     app.searchView.getData();
-    searchController.index();
+    // searchController.index();
     console.log(ctx);
-    centerOnLocation(ctx.params.location);
+    // centerOnLocation(ctx.params.location);
   }
 
   module.searchController = searchController;

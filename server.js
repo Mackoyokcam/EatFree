@@ -29,11 +29,11 @@ function proxySeattle() {
   .set('$limit', 5000)
   .set('$$app_token', `${process.env.SEATTLE_TOKEN}`)
   .end((err, res) => {
-    console.log(res.body[0]);
     proxyGeocode(res.body);
   });
 }
 
+// Convert location to lat/long and add to dataset
 function proxyGeocode(data) {
   // Sets throttle options for when we call geocode api.
   let throttle = new Throttle({
@@ -48,19 +48,14 @@ function proxyGeocode(data) {
     if (el.location) {
       let location = el.location.replace(/\s+/g, '+');
       let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEOCODE_TOKEN}&sensor=false`;
-      console.log(url);
       request
       .get(url)
       .use(throttle.plugin())
       .end((err, res) => {
         if(res.body.status === 'OK') {
-          // console.log(res.body.results[0]);
-          // console.log(`Searched = ${location.split('+').join(' ')}`);
-          // el.location = `${location.split('+').join(' ')}`;
           el.location = res.body.results[0].formatted_address;
           el.latitude = res.body.results[0].geometry.location.lat;
           el.longitude = res.body.results[0].geometry.location.lng;
-          console.log(`Returned: ${JSON.stringify(el)}`);
           loadMeal(el);
         } else {
           console.log(res.body.status);
@@ -73,13 +68,15 @@ function proxyGeocode(data) {
   console.log(`Size: ${data.length}`);
 }
 
-
 // this just grabs all of the meals from the database
 app.get('/meals', (request, response) => {
   client.query(`
     SELECT * FROM meals;`
   )
-  .then(result => response.send(result.rows))
+  .then(result => {
+    console.log(result.rows);
+    response.send(result.rows);
+  })
   .catch(console.error);
 });
 
@@ -90,42 +87,6 @@ app.get('/meals/find', (request, response) => {
   .then(result => response.send(result.rows))
   .catch(console.error);
 })
-
-
-// this takes a meal id and updates that row in the database
-app.put('/meals/:id', (request, response) => {
-  client.query(`
-    UPDATE authors
-    SET day_time=$1, location=$2, meal_served =$3, name_of_program=$4, people_served=$5,
-    latitude=$6, longitude=$7,
-    WHERE meal_id=$8
-    `,
-    [
-      request.body.day_time, request.body.location, request.body.meal_served,
-      request.body.name_of_program, request.body.people_served, request.body.latitude,
-      request.body.longitude, request.body.meal_id
-    ]
-  )
-  .then(() => response.send('Update complete'))
-  .catch(console.error);
-});
-
-// for testing
-// this manually adds a meal to the database
-app.post('/articles', function(request, response) {
-  client.query(
-    `INSERT INTO meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
-    VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING`,
-    [
-      request.body.day_time, request.body.location, request.body.meal_served,
-      request.body.name_of_program, request.body.people_served, request.body.latitude,
-      request.body.longitude
-    ],
-    function(err) {
-      if (err) console.error(err)
-      response.send('insert complete');
-    }
-  )});
 
 // loads up the database functions at the bottom of the page
 loadDB();
