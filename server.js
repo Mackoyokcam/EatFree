@@ -93,7 +93,7 @@ app.get('/meals/find', (request, response) => {
 // this takes a meal id and updates that row in the database
 app.put('/meals/:id', (request, response) => {
   client.query(`
-    UPDATE authors
+    UPDATE meals
     SET day_time=$1, location=$2, meal_served =$3, name_of_program=$4, people_served=$5,
     latitude=$6, longitude=$7,
     WHERE meal_id=$8
@@ -110,7 +110,7 @@ app.put('/meals/:id', (request, response) => {
 
 // for testing
 // this manually adds a meal to the database
-app.post('/articles', function(request, response) {
+app.post('/meals', function(request, response) {
   client.query(
     `INSERT INTO meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
     VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING`,
@@ -124,6 +124,12 @@ app.post('/articles', function(request, response) {
       response.send('insert complete');
     }
   )});
+
+  app.delete('/meals', (request, response) => {
+    client.query('DELETE FROM meals')
+    .then(() => response.send('Delete complete'))
+    .catch(console.error);
+  });
 
 // loads up the database functions at the bottom of the page
 loadDB();
