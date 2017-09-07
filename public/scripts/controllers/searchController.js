@@ -8,14 +8,17 @@ var app = app || {};
 
   searchController.index = function() {
     app.searchView.index();
-    app.Mealdata.getMealData(app.searchView.index);
   }
 
   searchController.getData = function(ctx) {
     app.searchView.getData();
-    // searchController.index();
-    console.log(ctx);
-    // centerOnLocation(ctx.params.location);
+    searchController.index();
+    console.log(ctx.params.location);
+    if (ctx) {
+      centerOnLocation(ctx.params.location);
+    } else {
+      centerOnLocation('Seattle');
+    }
   }
 
   module.searchController = searchController;
