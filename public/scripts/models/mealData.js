@@ -10,7 +10,7 @@ var app = app || {};
     // Request meal data from server
     $.get('/meals')
      .then(data => {
-       console.log(`Response data: ${data}`);
+      //  console.log(`Response data: ${data}`);
        Mealdata.all = data;
      }, err => console.error(err))
      .then(callback);

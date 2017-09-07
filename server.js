@@ -3,6 +3,7 @@
 const fs = require('fs');
 const pg = require('pg');
 const express = require('express');
+const bodyParser = require('body-parser');
 const request = require('superagent');
 const Throttle = require('superagent-throttle');
 const app = express();
@@ -17,6 +18,8 @@ client.connect();
 // if we don't sucessfully connect, print an error on the server
 client.on('error', err => console.error(err));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
 
 // Change this to an interval that invokes daily.
@@ -62,10 +65,9 @@ function proxyGeocode(data) {
         }
       })
     } else {
-      console.log(el);
+      console.log(`No location: ${el}`);
     }
   })
-  console.log(`Size: ${data.length}`);
 }
 
 // this just grabs all of the meals from the database
@@ -74,7 +76,6 @@ app.get('/meals', (request, response) => {
     SELECT * FROM meals;`
   )
   .then(result => {
-    console.log(result.rows);
     response.send(result.rows);
   })
   .catch(console.error);

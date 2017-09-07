@@ -14,7 +14,7 @@ main {
   width: 2em;
   height: 2em;
 }
-div div {
+.x {
   width: 2em;
   height: 5px;
   margin-top: 3px;
