@@ -1,28 +1,21 @@
 'use strict';
 
 const express = require('express');
-// const requestProxy = require('express-request-proxy');
-// const nocache = require('superagent-no-cache');
 const request = require('superagent');
 const Throttle = require('superagent-throttle');
-// const prefix = require('superagent-prefix')('/static');
 const app = express();
-// const request = require('request');
 const PORT = process.env.PORT || 3000;
-
-var mainData;
 
 app.use(express.static('./public'));
 
 app.get('/data', proxySeattle, proxyGeocode);
 
-function proxySeattle(next) {
+function proxySeattle() {
   request
   .get('https://data.seattle.gov/resource/47rs-c243.json')
   .set('$limit', 5000)
   .set('$$app_token', `${process.env.SEATTLE_TOKEN}`)
   .end((err, res) => {
-    mainData = res.body;
     console.log(res.body[0]);
     proxyGeocode(res.body);
   });
