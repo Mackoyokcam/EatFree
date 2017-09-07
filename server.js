@@ -10,6 +10,12 @@ const PORT = process.env.PORT || 3000;
 const conString = process.env.DATABASE_URL || 'postgres://postgres:kilovoltdb@localhost:5432/eatfreeseattle';
 // create a client variable to connect to the server in our con string above
 const client = new pg.Client(conString);
+var mainData = [
+  {
+    'seattle': [],
+    'google': []
+  }
+];
 
 // attempt to connect to the database
 client.connect();
@@ -27,6 +33,7 @@ function proxySeattle() {
   .set('$$app_token', `${process.env.SEATTLE_TOKEN}`)
   .end((err, res) => {
     console.log(res.body[0]);
+    mainData.seattle = res.body;
     proxyGeocode(res.body);
   });
 }
@@ -52,12 +59,14 @@ function proxyGeocode(data) {
       .end((err, res) => {
         if(res.body.status === 'OK') {
           console.log(res.body.results[0].geometry.location);
+          mainData.google.push(res.body.results[0].geometry);
           console.log(err);
         }
       })
     } else {
       console.log(el);
     }
+    console.log();
   })
 
   console.log(`Size: ${data.length}`);
@@ -129,7 +138,7 @@ app.listen(PORT, function() {
 ////////////////////
 // this function will load items into the database from either JSON or an array
 // TODO this is NOT functional yet
-/*function loadMeals() {
+function loadMeals() {
   // need to change this line to read from our array
   fs.readFile('./public/data/hackerIpsum.json', (err, fd) => {
     // need to change this line to also read from array
@@ -146,7 +155,7 @@ app.listen(PORT, function() {
       .catch(console.error);
     })
   })
-}*/
+}
 
 // this function creates the database table (if needed) and loads it from our data
 function loadDB() {
@@ -165,6 +174,6 @@ function loadDB() {
   )
   // TODO this will take us to load data into the database above here
   //.then(loadMeals)
-  .then(console.log("load complete?"))
+  .then(console.log('load complete?'))
   .catch(console.error);
 }
