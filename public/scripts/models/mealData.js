@@ -8,7 +8,7 @@ var app = app || {};
 
   Mealdata.getMealData = function(callback) {
       // this is working
-     $.get('/data/')
+    $.get('/data/')
      .then(data => Mealdata.all = data, err => console.error(err))
      .then(callback);
      // TEST
