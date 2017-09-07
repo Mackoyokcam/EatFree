@@ -89,12 +89,6 @@ app.get('/meals/find', (request, response) => {
   .catch(console.error);
 })
 
-  app.delete('/meals', (request, response) => {
-    client.query('DELETE FROM meals')
-    .then(() => response.send('Delete complete'))
-    .catch(console.error);
-  });
-
 // loads up the database functions at the bottom of the page
 loadDB();
 
