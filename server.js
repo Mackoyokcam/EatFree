@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const pg = require('pg');
 const express = require('express');
 const request = require('superagent');
@@ -10,12 +11,6 @@ const PORT = process.env.PORT || 3000;
 const conString = process.env.DATABASE_URL || 'postgres://postgres:kilovoltdb@localhost:5432/eatfreeseattle';
 // create a client variable to connect to the server in our con string above
 const client = new pg.Client(conString);
-var mainData = [
-  {
-    'seattle': [],
-    'google': []
-  }
-];
 
 // attempt to connect to the database
 client.connect();
@@ -27,13 +22,13 @@ app.use(express.static('./public'));
 app.get('/data', proxySeattle, proxyGeocode);
 
 function proxySeattle() {
+  clearTable();
   request
   .get('https://data.seattle.gov/resource/47rs-c243.json')
   .set('$limit', 5000)
   .set('$$app_token', `${process.env.SEATTLE_TOKEN}`)
   .end((err, res) => {
     console.log(res.body[0]);
-    mainData.seattle = res.body;
     proxyGeocode(res.body);
   });
 }
@@ -51,24 +46,29 @@ function proxyGeocode(data) {
   data.forEach(el => {
     if (el.location) {
       let location = el.location.replace(/\s+/g, '+');
-      let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEOCODE_TOKEN}`;
+      let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEOCODE_TOKEN}&sensor=false`;
       console.log(url);
       request
       .get(url)
       .use(throttle.plugin())
       .end((err, res) => {
         if(res.body.status === 'OK') {
-          console.log(res.body.results[0].geometry.location);
-          mainData.google.push(res.body.results[0].geometry);
-          console.log(err);
+          // console.log(res.body.results[0]);
+          // console.log(`Searched = ${location.split('+').join(' ')}`);
+          // el.location = `${location.split('+').join(' ')}`;
+          el.location = res.body.results[0].formatted_address;
+          el.latitude = res.body.results[0].geometry.location.lat;
+          el.longitude = res.body.results[0].geometry.location.lng;
+          console.log(`Returned: ${JSON.stringify(el)}`);
+          loadMeal(el);
+        } else {
+          console.log(res.body.status);
         }
       })
     } else {
       console.log(el);
     }
-    console.log();
   })
-
   console.log(`Size: ${data.length}`);
 }
 
@@ -95,13 +95,13 @@ app.get('/meals/find', (request, response) => {
 app.put('/meals/:id', (request, response) => {
   client.query(`
     UPDATE authors
-    SET daytime=$1, address=$2, mealserved =$3, program=$4, people=$5,
+    SET day_time=$1, location=$2, meal_served =$3, name_of_program=$4, people_served=$5,
     latitude=$6, longitude=$7,
     WHERE meal_id=$8
     `,
     [
-      request.body.daytime, request.body.address, request.body.mealserved,
-      request.body.program, request.body.people, request.body.latitude,
+      request.body.day_time, request.body.location, request.body.meal_served,
+      request.body.name_of_program, request.body.people_served, request.body.latitude,
       request.body.longitude, request.body.meal_id
     ]
   )
@@ -113,11 +113,11 @@ app.put('/meals/:id', (request, response) => {
 // this manually adds a meal to the database
 app.post('/articles', function(request, response) {
   client.query(
-    `INSERT INTO meals(dayTime, address, mealserved, program, people, latitude, longitude)
+    `INSERT INTO meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
     VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING`,
     [
-      request.body.daytime, request.body.address, request.body.mealserved,
-      request.body.program, request.body.people, request.body.latitude,
+      request.body.day_time, request.body.location, request.body.meal_served,
+      request.body.name_of_program, request.body.people_served, request.body.latitude,
       request.body.longitude
     ],
     function(err) {
@@ -136,20 +136,49 @@ app.listen(PORT, function() {
 
 // database stuff //
 ////////////////////
+// Clear table
+function clearTable() {
+  client.query('DELETE FROM meals').then(console.log('Cleared Tables'))
+  .catch(console.error);
+}
+
+// Load single meal
+function loadMeal(ele) {
+  console.log('Meal added?');
+  client.query(`
+    INSERT INTO
+    meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
+    VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING`,
+    [
+      ele.day_time,
+      ele.location,
+      ele.meal_served,
+      ele.name_of_program,
+      ele.people_served,
+      ele.latitude,
+      ele.longitude
+    ]
+  )
+  .catch(console.error);
+}
 // this function will load items into the database from either JSON or an array
-// TODO this is NOT functional yet
+// TODO this is still a work in progress
 function loadMeals() {
-  // need to change this line to read from our array
-  fs.readFile('./public/data/hackerIpsum.json', (err, fd) => {
-    // need to change this line to also read from array
+  // need to change this once json is merged
+  fs.readFile('./public/data/mealdata.json', (err, fd) => {
     JSON.parse(fd.toString()).forEach(ele => {
       client.query(`
         INSERT INTO
-        meals(dayTime, address, mealserved, program, people, latitude, longitude)
+        meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
         VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING`,
         [
-          ele.daytime, ele.address, ele.mealserved, ele.program, ele.people,
-          ele.latitude, ele.longitude
+          ele.day_time,
+          ele.location,
+          ele.meal_served,
+          ele.name_of_program,
+          ele.people_served,
+          ele.latitude,
+          ele.longitude
         ]
       )
       .catch(console.error);
@@ -163,17 +192,17 @@ function loadDB() {
     CREATE TABLE IF NOT EXISTS
     meals (
       meal_id SERIAL PRIMARY KEY,
-      daytime VARCHAR(60),
-      address VARCHAR(255),
-      mealserved VARCHAR(20),
-      program VARCHAR(255) NOT NULL,
-      people VARCHAR(255),
+      day_time VARCHAR(255),
+      location VARCHAR(255),
+      meal_served VARCHAR(255),
+      name_of_program VARCHAR(255) NOT NULL,
+      people_served VARCHAR(255),
       latitude VARCHAR(255),
       longitude VARCHAR(255)
     );`
   )
   // TODO this will take us to load data into the database above here
-  //.then(loadMeals)
+  .then(loadMeals)
   .then(console.log('load complete?'))
   .catch(console.error);
 }
