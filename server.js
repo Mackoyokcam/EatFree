@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const pg = require('pg');
 const express = require('express');
 // const requestProxy = require('express-request-proxy');
@@ -93,13 +94,13 @@ app.get('/meals/find', (request, response) => {
 app.put('/meals/:id', (request, response) => {
   client.query(`
     UPDATE authors
-    SET daytime=$1, address=$2, mealserved =$3, program=$4, people=$5,
+    SET day_time=$1, location=$2, meal_served =$3, name_of_program=$4, people_served=$5,
     latitude=$6, longitude=$7,
     WHERE meal_id=$8
     `,
     [
-      request.body.daytime, request.body.address, request.body.mealserved,
-      request.body.program, request.body.people, request.body.latitude,
+      request.body.day_time, request.body.location, request.body.meal_served,
+      request.body.name_of_program, request.body.people_served, request.body.latitude,
       request.body.longitude, request.body.meal_id
     ]
   )
@@ -111,11 +112,11 @@ app.put('/meals/:id', (request, response) => {
 // this manually adds a meal to the database
 app.post('/articles', function(request, response) {
   client.query(
-    `INSERT INTO meals(dayTime, address, mealserved, program, people, latitude, longitude)
+    `INSERT INTO meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
     VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING`,
     [
-      request.body.daytime, request.body.address, request.body.mealserved,
-      request.body.program, request.body.people, request.body.latitude,
+      request.body.day_time, request.body.location, request.body.meal_served,
+      request.body.name_of_program, request.body.people_served, request.body.latitude,
       request.body.longitude
     ],
     function(err) {
@@ -135,25 +136,29 @@ app.listen(PORT, function() {
 // database stuff //
 ////////////////////
 // this function will load items into the database from either JSON or an array
-// TODO this is NOT functional yet
-/*function loadMeals() {
-  // need to change this line to read from our array
-  fs.readFile('./public/data/hackerIpsum.json', (err, fd) => {
-    // need to change this line to also read from array
+// TODO this is still a work in progress
+function loadMeals() {
+  // need to change this once json is merged
+  fs.readFile('./public/data/mealdata.json', (err, fd) => {
     JSON.parse(fd.toString()).forEach(ele => {
       client.query(`
         INSERT INTO
-        meals(dayTime, address, mealserved, program, people, latitude, longitude)
+        meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
         VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING`,
         [
-          ele.daytime, ele.address, ele.mealserved, ele.program, ele.people,
-          ele.latitude, ele.longitude
+          ele.day_time,
+          ele.location,
+          ele.meal_served,
+          ele.name_of_program,
+          ele.people_served,
+          ele.latitude,
+          ele.longitude
         ]
       )
       .catch(console.error);
     })
   })
-}*/
+}
 
 // this function creates the database table (if needed) and loads it from our data
 function loadDB() {
@@ -161,11 +166,11 @@ function loadDB() {
     CREATE TABLE IF NOT EXISTS
     meals (
       meal_id SERIAL PRIMARY KEY,
-      daytime VARCHAR(60),
-      address VARCHAR(255),
-      mealserved VARCHAR(20),
-      program VARCHAR(255) NOT NULL,
-      people VARCHAR(255),
+      day_time VARCHAR(60),
+      location VARCHAR(255),
+      meal_served VARCHAR(20),
+      name_of_program VARCHAR(255) NOT NULL,
+      people_served VARCHAR(255),
       latitude VARCHAR(255),
       longitude VARCHAR(255)
     );`
