@@ -88,51 +88,12 @@ app.get('/meals/find', (request, response) => {
   .catch(console.error);
 })
 
-<<<<<<< HEAD
-=======
-
-// this takes a meal id and updates that row in the database
-app.put('/meals/:id', (request, response) => {
-  client.query(`
-    UPDATE meals
-    SET day_time=$1, location=$2, meal_served =$3, name_of_program=$4, people_served=$5,
-    latitude=$6, longitude=$7,
-    WHERE meal_id=$8
-    `,
-    [
-      request.body.day_time, request.body.location, request.body.meal_served,
-      request.body.name_of_program, request.body.people_served, request.body.latitude,
-      request.body.longitude, request.body.meal_id
-    ]
-  )
-  .then(() => response.send('Update complete'))
-  .catch(console.error);
-});
-
-// for testing
-// this manually adds a meal to the database
-app.post('/meals', function(request, response) {
-  client.query(
-    `INSERT INTO meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
-    VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING`,
-    [
-      request.body.day_time, request.body.location, request.body.meal_served,
-      request.body.name_of_program, request.body.people_served, request.body.latitude,
-      request.body.longitude
-    ],
-    function(err) {
-      if (err) console.error(err)
-      response.send('insert complete');
-    }
-  )});
-
   app.delete('/meals', (request, response) => {
     client.query('DELETE FROM meals')
     .then(() => response.send('Delete complete'))
     .catch(console.error);
   });
 
->>>>>>> minor database bug fixes
 // loads up the database functions at the bottom of the page
 loadDB();
 
@@ -169,7 +130,6 @@ function loadMeal(ele) {
   .catch(console.error);
 }
 // this function will load items into the database from either JSON or an array
-// TODO this is still a work in progress
 function loadMeals() {
   // need to change this once json is merged
   fs.readFile('./public/data/mealdata.json', (err, fd) => {
@@ -193,6 +153,15 @@ function loadMeals() {
   })
 }
 
+function cleanMeals() {
+  DELETE FROM meals
+  WHERE meal_id IN (SELECT meal_id
+    FROM (SELECT meal_id,
+      ROW_NUMBER() OVER (partition BY name_of_program, meal_served,
+        ORDER BY meal_id) AS rnum
+        FROM meals) t
+        WHERE t.rnum > 1);
+      }
 // this function creates the database table (if needed) and loads it from our data
 function loadDB() {
   client.query(`
@@ -210,6 +179,7 @@ function loadDB() {
   )
   // TODO this will take us to load data into the database above here
   .then(loadMeals)
+  .then(cleanMeals)
   .then(console.log('load complete?'))
   .catch(console.error);
 }
