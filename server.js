@@ -90,7 +90,8 @@ app.get('/meals/find', (request, response) => {
 })
 
 // loads up the database functions at the bottom of the page
-loadDB();
+//loadDB();
+cleanMeals();
 
 // deploys app to the target port and sends a message to the server console
 app.listen(PORT, function() {
