@@ -184,6 +184,107 @@ input[type="text"]:focus {
   .icon-menu {
     display: none;
   }
+}
+.icon-menu-items {
+  display: none;
+}
+.show {
+  position: absolute;
+  right: 10px;
+  text-align: right;
+  top: 60px;
+  display: inline;
+  animation: 500 animeShow;
+}
+.icon-menu {
+  float: right;
+  margin-top: 15px;
+  margin-right: 10px;
+  width: 3em;
+  height: 3em;
+}
+legend {
+  font-size: 1em;
+  font-family: 'Merriweather', serif;
+  color: white;
+  padding: .5em;
+  font-weight: bolder;
+  background-color: #0074d9;
+  opacity: .85;
+}
+main footer {
+  display: none;
+}
+#logo {
+  text-align: center;
+  float: left;
+  height: 4em;
+  width: 4em;
+  position: absolute;
+  background-color: #FF851B;
+  padding: 1em;
+  border-radius: 3em;
+  border: 3px solid #FF4136;
+  margin-left: 10%;
+  margin-top: -15px;
+}
+#logo h1 {
+    text-align: center;
+}
+/*header #logo {
+  text-align: center;
+  /*float: left;*//*
+  height: 5em;
+  width: 5em;
+  position: absolute;
+  top: 30px;
+  left: 0px;
+  background-color: #FF851B;
+  padding: 1em;
+  border-radius: 3em;
+  border: 3px solid #FF4136;
+  margin-left: 5%;
+}*/
+
+
+#logo h1 {
+  font-size: 0.7em;
+  color: white;
+  font-family: 'Baloo Tammudu', cursive;
+}
+/* #logo h1 { font-size: 15px; } */
+input[type="text"] {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+  opacity: .85;
+}
+input[type="text"]:focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
+.button {
+  display: inline-block;
+  position: relative;
+  margin: 10px;
+  padding: 10px 20px;
+  text-align: center;
+  background: #FF851B;
+  font-size: 1em;
+  font-family: 'Sanchez', serif;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+}
 
   .show {
     display: block;
