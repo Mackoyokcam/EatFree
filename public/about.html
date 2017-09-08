@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>About Us</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1.0">
     <link rel="stylesheet" href="/vendor/styles/reset.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather|Baloo+Tammudu|Sanchez|Mukta+Mahee|Roboto+Slab|Saira+Semi+Condensed" rel="stylesheet">
@@ -27,8 +27,10 @@
         <nav class="show">
           <ul>
             <li><a href="/">Home</a></li>
-            <li>Careers</li>
-            <li>API usage</li>
+            <li><a href="about.html">About</a></li>
+            <li>
+              <a href ="https://data.seattle.gov/Community/Meals-Programs-in-Seattle/hmzu-x5ed">API Used</a>
+            </li>
           </ul>
         </nav>
       </header>
@@ -39,14 +41,18 @@
          </fieldset>
         </form>
       </section>
-      <footer></footer>
+      <footer class="footer"></footer>
     </main>
     <div id="anotha_one">
       <aside id="random_quote">Meet the developers!</aside>
       <section class="imgs-container">
         <ul class="team-imgs" id="first-imgs">
-          <li><img src="images/george.jpeg"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></li>
-          <li><img src="images/kevin.jpeg"><p>Hi my name is Kevin. I served in the U.S Navy for four years as a welder. I am currently attending codefellows to pursue my passion for programming. My dream one day is to become a developer in Python. I also have a few hobbies that I enjoy very much such as basketball, ultimate frisbee, hiking and occasional traveling.</p></li>
+          <li><img src="images/george.jpeg"><p>Hi, my name is George Gaylor.  I was in the US Army for 7 years and continued on to college.  I've worked in the industry as a Test Engineer and Support Analyst and I'm here to level up my skills.  I enjoy spending time with my family and playing video games in my free time, as well as tinkering with Linux.</p></li>
+          <li><img src="images/kevin.jpeg">
+            <p>
+              My name is Powen Chang.  I served in the U.S Navy for four years as a welder. I am currently attending codefellows to pursue my passion for programming. My dream one day is to become a developer in Python. I also have a few hobbies that I enjoy very much such as basketball, ultimate frisbee, hiking and occasional traveling.
+            </p>
+          </li>
         </ul>
         <ul class="team-imgs" id="second-imgs">
           <li><img src="images/mark.png"><p> Hi my name is Mark Hangarter. I was in the US Navy for five years and enjoyed every bit of it (not). My passion is gaming and developing, hence why I joined code fellows. I am here to further my abilities in Javascript and be able to make a living doing what I love. </p></li>
@@ -57,5 +63,6 @@
     <footer class="bottom">Copyright &copy; 2017 <a>EatFreeSeattle</a></footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/scripts/views/indexView.js"></script>
+    <script src="/scripts/controllers/routes.js"></script>
   </body>
 </html>
