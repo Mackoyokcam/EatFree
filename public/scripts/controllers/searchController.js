@@ -7,7 +7,7 @@ var app = app || {};
   const searchController = {};
 
   searchController.getData = function(ctx) {
-    // app.searchView.getData();
+    app.searchView.getData();
     console.log(ctx.params.location);
     if (ctx.params) {
       centerOnLocation('Seattle');

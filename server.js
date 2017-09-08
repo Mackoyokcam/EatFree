@@ -117,7 +117,7 @@ function loadMeal(ele) {
   client.query(`
     INSERT INTO
     meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
-    VALUES ($1, $2, $3, $4, $5, $6, $7) ON CONFLICT DO NOTHING`,
+    VALUES ($1, $2, $3, $4, $5, $6, $7);`,
     [
       ele.day_time,
       ele.location,
