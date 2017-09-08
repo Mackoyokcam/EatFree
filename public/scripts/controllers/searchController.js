@@ -14,10 +14,10 @@ var app = app || {};
     app.searchView.getData();
     searchController.index();
     console.log(ctx.params.location);
-    if (ctx) {
-      centerOnLocation(ctx.params.location);
-    } else {
+    if (ctx.params.location === '') {
       centerOnLocation('Seattle');
+    } else {
+      centerOnLocation(ctx.params.location);
     }
   }
 
