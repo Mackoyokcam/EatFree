@@ -6,13 +6,8 @@ var app = app || {};
 
   const searchView = {};
 
-  searchView.index = function() {
-    $('#map').show();
-  }
-
   searchView.getData = function() {
     app.Mealdata.getMealData(function() {
-      // console.log(`Meal array: ${app.Mealdata.all}`);
     });
   }
 

@@ -10,8 +10,8 @@ var app = app || {};
     // Request meal data from server
     $.get('/meals')
      .then(data => {
-      //  console.log(`Response data: ${data}`);
        Mealdata.all = data;
+       app.Mealdata.all.forEach(el => createMarker(el));
      }, err => console.error(err))
      .then(callback);
   };

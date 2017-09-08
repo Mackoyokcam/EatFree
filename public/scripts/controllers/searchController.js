@@ -6,15 +6,11 @@ var app = app || {};
 
   const searchController = {};
 
-  searchController.index = function() {
-    app.searchView.index();
-  }
-
   searchController.getData = function(ctx) {
     app.searchView.getData();
-    searchController.index();
-    console.log(ctx.params.location);
-    if (ctx.params.location === '') {
+
+    // If user entered blank search, search for seattle
+    if (ctx.params) {
       centerOnLocation('Seattle');
     } else {
       centerOnLocation(ctx.params.location);
