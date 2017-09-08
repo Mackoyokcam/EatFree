@@ -73,6 +73,21 @@ ul {
   animation: 500 animeShow;
 }
 
+.button {
+  display: inline-block;
+  position: relative;
+  margin: 10px;
+  padding: 10px 20px;
+  text-align: center;
+  background: #FF851B;
+  font-size: 1em;
+  font-family: 'Sanchez', serif;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+}
+
 form {
   display: inline-block;
   vertical-align: middle;
@@ -100,5 +115,5 @@ main section {
 }
 
 main footer {
-  display: none;
+  display: inline-block;
 }
