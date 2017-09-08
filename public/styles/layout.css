@@ -115,5 +115,10 @@ main section {
 }
 
 main footer {
-  display: inline-block;
+  background-color: #0074d9;
+  opacity: .75;
+  width: 100%;
+  height: 8%;
+  position: absolute;
+  bottom: 0px;
 }
