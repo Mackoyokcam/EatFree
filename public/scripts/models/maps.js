@@ -3,6 +3,7 @@
 'use strict';
 var app = app || {};
 
+var currentPin;
 var map;
 var pinImageBlue;
 var pinImageRed;
@@ -39,6 +40,10 @@ function myMap() {
 
 function centerOnLocation(address) {
 
+  if (currentPin) {
+    currentPin.setMap(null);
+  }
+
   let geocoder = new google.maps.Geocoder();
   geocoder.geocode({'address': address}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
@@ -46,7 +51,7 @@ function centerOnLocation(address) {
       let long = results[0].geometry.location.lng();
       var latlng = new google.maps.LatLng(lat, long);
       map.setCenter(latlng);
-      let marker = new google.maps.Marker({
+      let currentPin = new google.maps.Marker({
         map: map,
         position: latlng,
         icon: pinImageBlue,
@@ -54,7 +59,7 @@ function centerOnLocation(address) {
         animation: google.maps.Animation.BOUNCE
       });
       map.setZoom(12);
-      map.panTo(marker.position);
+      map.panTo(currentPin.position);
     } else {
       console.error('Geocode failed.');
     }
@@ -62,7 +67,6 @@ function centerOnLocation(address) {
 }
 
 function createMarker(data) {
-  console.log(`lat = ${data.latitude}, long = ${data.longitude}`);
   latlng = new google.maps.LatLng(data.latitude, data.longitude);
   let marker = new google.maps.Marker({
     map: map,
