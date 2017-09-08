@@ -143,9 +143,6 @@ input[type="text"]:focus {
     margin-right: 2em;
     opacity: .75;
   }
-  main footer {
-    display: none;
-  }
 
   .icon-menu {
     float: right;
