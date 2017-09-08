@@ -18,6 +18,9 @@ client.connect();
 // if we don't sucessfully connect, print an error on the server
 client.on('error', err => console.error(err));
 
+app.get('/', (request, response) => response.sendFile('index.html', {root: './public'}));
+app.get('/about', (request, response) => response.sendFile('about.html', {root: './public'}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('./public'));
@@ -42,8 +45,8 @@ function proxyGeocode(data) {
   // Sets throttle options for when we call geocode api.
   let throttle = new Throttle({
     active: true,     // set false to pause queu
-    rate: 50,          // how many requests can be sent every `ratePer`
-    ratePer: 1000,   // number of ms in which `rate` requests may be sent
+    rate: 50,         // how many requests can be sent every `ratePer`
+    ratePer: 1000,    // number of ms in which `rate` requests may be sent
     concurrent: 1     // how many requests can be sent concurrently
   })
 
@@ -93,8 +96,8 @@ app.get('/meals/find', (request, response) => {
 })
 
 // loads up the database functions at the bottom of the page
-//loadDB();
-cleanMeals();
+loadDB();
+//cleanMeals();
 
 // deploys app to the target port and sends a message to the server console
 app.listen(PORT, function() {
