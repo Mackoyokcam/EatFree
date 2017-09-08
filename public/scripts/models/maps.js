@@ -3,7 +3,6 @@
 'use strict';
 var app = app || {};
 
-var currentPin;
 var map;
 var pinImageBlue;
 var pinImageRed;
@@ -11,6 +10,7 @@ var pinShadow;
 var latlng;
 var prevMarker;
 var prevWindow;
+var markers = [];
 
 function myMap() {
 
@@ -39,11 +39,7 @@ function myMap() {
 
 
 function centerOnLocation(address) {
-
-  if (currentPin) {
-    currentPin.setMap(null);
-  }
-
+  deleteMarkers();
   let geocoder = new google.maps.Geocoder();
   geocoder.geocode({'address': address}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
@@ -60,6 +56,7 @@ function centerOnLocation(address) {
       });
       map.setZoom(12);
       map.panTo(currentPin.position);
+      markers.push(currentPin);
     } else {
       console.error('Geocode failed.');
     }
@@ -75,6 +72,7 @@ function createMarker(data) {
     shadow: pinShadow,
     animation: google.maps.Animation.DROP
   });
+  markers.push(marker);
   const infoWindowOptions = {
     content: `
       <strong>Meal type:</strong> ${data.meal_served}<br>
@@ -93,4 +91,19 @@ function createMarker(data) {
     prevMarker = marker;
     prevWindow = infoWindow;
   });
+}
+
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
 }

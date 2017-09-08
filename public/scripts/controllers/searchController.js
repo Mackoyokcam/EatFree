@@ -8,7 +8,8 @@ var app = app || {};
 
   searchController.getData = function(ctx) {
     app.searchView.getData();
-    console.log(ctx.params.location);
+
+    // If user entered blank search, search for seattle
     if (ctx.params) {
       centerOnLocation('Seattle');
     } else {
