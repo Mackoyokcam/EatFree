@@ -12,7 +12,6 @@ var app = app || {};
 
   searchView.getData = function() {
     app.Mealdata.getMealData(function() {
-      // console.log(`Meal array: ${app.Mealdata.all}`);
     });
   }
 

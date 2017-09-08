@@ -12,6 +12,7 @@ var app = app || {};
      .then(data => {
       //  console.log(`Response data: ${data}`);
        Mealdata.all = data;
+       app.Mealdata.all.forEach(el => createMarker(el));
      }, err => console.error(err))
      .then(callback);
   };
