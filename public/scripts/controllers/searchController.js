@@ -10,7 +10,7 @@ var app = app || {};
     app.searchView.getData();
 
     // If user entered blank search, search for seattle
-    if (ctx.params) {
+    if (!ctx.params) {
       centerOnLocation('Seattle');
     } else {
       centerOnLocation(ctx.params.location);
