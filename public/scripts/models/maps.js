@@ -1,21 +1,27 @@
+/*global google */  //Added to make eslint play nice with google maps.
+
 'use strict';
 var app = app || {};
 
 var map;
-var pinImage;
+var pinImageBlue;
+var pinImageRed;
 var pinShadow;
-var pinColor;
 var latlng;
 var prevMarker;
 var prevWindow;
 
 function myMap() {
 
-  pinColor = '3366FF';
-  pinImage = new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + pinColor,
+  pinImageBlue = new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + '3366FF',
       new google.maps.Size(21, 34),
       new google.maps.Point(0,0),
       new google.maps.Point(10, 34));
+  pinImageRed = new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + 'FE7569',
+      new google.maps.Size(21, 34),
+      new google.maps.Point(0,0),
+      new google.maps.Point(10, 34));
+
   pinShadow = new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_pin_shadow',
       new google.maps.Size(40, 37),
       new google.maps.Point(0, 0),
@@ -33,7 +39,6 @@ function myMap() {
 
 function centerOnLocation(address) {
 
-  pinColor = '3366FF';
   let geocoder = new google.maps.Geocoder();
   geocoder.geocode({'address': address}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK) {
@@ -44,8 +49,9 @@ function centerOnLocation(address) {
       let marker = new google.maps.Marker({
         map: map,
         position: latlng,
-        icon: pinImage,
-        shadow: pinShadow
+        icon: pinImageBlue,
+        shadow: pinShadow,
+        animation: google.maps.Animation.BOUNCE
       });
       map.setZoom(12);
       map.panTo(marker.position);
@@ -56,18 +62,14 @@ function centerOnLocation(address) {
 }
 
 function createMarker(data) {
-  pinColor = 'FE7569';
-  pinImage = new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + pinColor,
-      new google.maps.Size(21, 34),
-      new google.maps.Point(0,0),
-      new google.maps.Point(10, 34));
   console.log(`lat = ${data.latitude}, long = ${data.longitude}`);
   latlng = new google.maps.LatLng(data.latitude, data.longitude);
   let marker = new google.maps.Marker({
     map: map,
     position: latlng,
-    icon: pinImage,
-    shadow: pinShadow
+    icon: pinImageRed,
+    shadow: pinShadow,
+    animation: google.maps.Animation.DROP
   });
   const infoWindowOptions = {
     content: `
@@ -79,7 +81,7 @@ function createMarker(data) {
     `
   };
   const infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-  google.maps.event.addListener(marker,'click',function(e) {
+  google.maps.event.addListener(marker,'click',function() {
     if (prevMarker) {
       prevWindow.close(map, prevMarker)
     }
@@ -88,12 +90,3 @@ function createMarker(data) {
     prevWindow = infoWindow;
   });
 }
-
-// const infoWindowOptions = {
-//   content: 'LOL'
-// };
-//
-// const infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-// google.maps.event.addListener(marker,'click',function(e) {
-//   infoWindow.open(map, marker);
-// });

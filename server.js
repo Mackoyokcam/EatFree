@@ -25,6 +25,7 @@ app.use(express.static('./public'));
 // Change this to an interval that invokes daily.
 app.get('/data', proxySeattle, proxyGeocode);
 
+// Request seattle API data
 function proxySeattle() {
   clearTable();
   request
@@ -61,7 +62,7 @@ function proxyGeocode(data) {
           el.longitude = res.body.results[0].geometry.location.lng;
           loadMeal(el);
         } else {
-          console.log(res.body.status);
+          console.log(`Uh oh: ${res.body.status}`);
         }
       })
     } else {
@@ -71,6 +72,7 @@ function proxyGeocode(data) {
 }
 
 // this just grabs all of the meals from the database
+// Requested when used clicks submit on browser
 app.get('/meals', (request, response) => {
   client.query(`
     SELECT * FROM meals;`
@@ -82,6 +84,7 @@ app.get('/meals', (request, response) => {
 });
 
 // this grabs a specific meal from the database
+// No functionality on browser uses this yet.
 app.get('/meals/find', (request, response) => {
   let sql = `SELECT * FROM meals WHERE ${request.query.field}=$1`
   client.query(sql, [request.query.val])
@@ -99,15 +102,18 @@ app.listen(PORT, function() {
 
 // database stuff //
 ////////////////////
-// Clear table
+
+// Clears the table
+// Used when getting new API data and need to repopulate the table.
 function clearTable() {
   client.query('DELETE FROM meals').then(console.log('Cleared Tables'))
   .catch(console.error);
 }
 
 // Load single meal
+// Used when geocoding async call is done, inserts ready data into the DB.
 function loadMeal(ele) {
-  console.log('Meal added?');
+  console.log(`Added: ${ele}`);
   client.query(`
     INSERT INTO
     meals(day_time, location, meal_served, name_of_program, people_served, latitude, longitude)
@@ -124,7 +130,9 @@ function loadMeal(ele) {
   )
   .catch(console.error);
 }
+
 // this function will load items into the database from either JSON or an array
+// Currently disabled due to possible duplicates being inserted into DB on server load.
 function loadMeals() {
   // need to change this once json is merged
   fs.readFile('./public/data/mealdata.json', (err, fd) => {
@@ -148,6 +156,7 @@ function loadMeals() {
   })
 }
 
+// Attempt to clean duplicate data inserted by loadMeals function.
 function cleanMeals() {
   client.query(`
     DELETE FROM meals
@@ -159,8 +168,10 @@ function cleanMeals() {
           WHERE t.rnum > 1);`
         )
         .catch(console.error);
-      }
+}
+
 // this function creates the database table (if needed) and loads it from our data
+// Called on server load.
 function loadDB() {
   client.query(`
     CREATE TABLE IF NOT EXISTS
@@ -175,7 +186,6 @@ function loadDB() {
       longitude VARCHAR(255)
     );`
   )
-  // TODO this will take us to load data into the database above here
   // .then(loadMeals)
   // .then(cleanMeals)
   .then(console.log('load complete?'))
