@@ -41,6 +41,16 @@ main footer {
   background-color: #FF851B;
 }
 
+#anotha_one {
+  width: 100%;
+  padding: 5%;
+}
+/* About us */
+.imgs-container {
+  font-family: 'Roboto Slab', serif;
+  width: 100%;
+}
+
 /* Medium Screen */
 @media screen and (min-width: 600px) {
   main {
