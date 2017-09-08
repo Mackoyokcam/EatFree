@@ -95,3 +95,7 @@
     margin-bottom: 5%;
   }
 }
+
+strong {
+  font-weight: bold;
+}
