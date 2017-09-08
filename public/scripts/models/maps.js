@@ -67,7 +67,6 @@ function centerOnLocation(address) {
 }
 
 function createMarker(data) {
-  console.log(`lat = ${data.latitude}, long = ${data.longitude}`);
   latlng = new google.maps.LatLng(data.latitude, data.longitude);
   let marker = new google.maps.Marker({
     map: map,
