@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-    <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <title>EatFreeSeattle</title>
+    <meta name="viewport" content="initial-scale=1.0">
     <link rel="stylesheet" href="/vendor/styles/reset.css" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Merriweather|Baloo+Tammudu|Sanchez|Mukta+Mahee" rel="stylesheet">
@@ -25,9 +24,9 @@
           <div class="x"></div>
         </div>
         <nav>
-          <ul>
+          <ul class="icon-menu-items">
+            <li><a href="/">Home</a></li>
             <li><a href="about.html">About</a></li>
-            <li>Careers</li>
             <li>API usage</li>
           </ul>
         </nav>
@@ -44,16 +43,18 @@
     <footer class="footer"></footer>
     </main>
     <div id="map"></div>
-    <footer class="bottom">Copyright &copy; 2017 <a>FatFreeSeattle</a></footer>
+    <footer class="bottom">Copyright &copy; 2017 <a>EatFreeSeattle</a></footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/vendor/scripts/page.js"></script>
     <script src="/scripts/models/maps.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC52e0fnsZr7Lqi0eO4a5Ye13sRtHgEs-k&callback=myMap" async defer></script>
-    <script src="/scripts/controllers/indexController.js"></script>
-    <script src="/scripts/controllers/searchController.js"></script>
+
     <script src="/scripts/models/mealData.js"></script>
     <script src="/scripts/views/searchView.js"></script>
-    <script src="/scripts/controllers/routes.js"></script>
     <script src="/scripts/views/indexView.js"></script>
+    <script src="/scripts/controllers/indexController.js"></script>
+    <script src="/scripts/controllers/aboutController.js"></script>
+    <script src="/scripts/controllers/searchController.js"></script>
+    <script src="/scripts/controllers/routes.js"></script>
   </body>
 </html>

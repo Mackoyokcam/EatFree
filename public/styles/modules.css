@@ -1,28 +1,183 @@
-@media screen and (min-width: 600px) {
-  body {
-    width: 100%;
-    height: 100%;
+/* hamburger menu */
+@keyframes animeShow {
+  0% {
+    transform: scaleY(0);
   }
-
-  header #logo {
+  100% {
+    transform: scaleY(1);
+  }
+}
+.icon-menu-items {
+  display: none;
+}
+.show {
+  position: absolute;
+  right: 10px;
+  text-align: right;
+  top: 60px;
+  display: inline;
+  animation: 500 animeShow;
+}
+.icon-menu {
+  float: right;
+  margin-top: 15px;
+  margin-right: 10px;
+  width: 3em;
+  height: 3em;
+}
+legend {
+  font-size: 1em;
+  font-family: 'Merriweather', serif;
+  color: white;
+  padding: .5em;
+  font-weight: bolder;
+  background-color: #0074d9;
+  opacity: .85;
+}
+main footer {
+  display: none;
+}
+#logo {
+  text-align: center;
+  float: left;
+  height: 4em;
+  width: 4em;
+  position: absolute;
+  background-color: #FF851B;
+  padding: 1em;
+  border-radius: 3em;
+  border: 3px solid #FF4136;
+  margin-left: 10%;
+  margin-top: -15px;
+}
+#logo h1 {
     text-align: center;
-    float: left;
+}
+/*header #logo {
+  text-align: center;
+  /*float: left;*//*
+  height: 5em;
+  width: 5em;
+  position: absolute;
+  top: 30px;
+  left: 0px;
+  background-color: #FF851B;
+  padding: 1em;
+  border-radius: 3em;
+  border: 3px solid #FF4136;
+  margin-left: 5%;
+}*/
+
+
+#logo h1 {
+  font-size: 0.7em;
+  color: white;
+  font-family: 'Baloo Tammudu', cursive;
+}
+/* #logo h1 { font-size: 15px; } */
+input[type="text"] {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  padding: 10px;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+  opacity: .85;
+}
+input[type="text"]:focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
+.button {
+  display: inline-block;
+  position: relative;
+  margin: 10px;
+  padding: 10px 20px;
+  text-align: center;
+  background: #FF851B;
+  font-size: 1em;
+  font-family: 'Sanchez', serif;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+}
+
+.bottom {
+  font-size: 30px;
+  color: white;
+  text-align: center;
+  padding-top: 10px;
+  width: 100%;
+  height: 50px;
+  background-color: #FF851B;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+  /*margin: 0px auto;
+  margin-top: 5%;
+  margin-bottom: 5%;*/
+}
+
+li {
+  display: inline-block;
+  padding-left: 50px;
+}
+/* about page */
+.team-imgs img {
+  border-radius: 100%;
+  height: 10em;
+  width: 10em;
+  padding: 5px;
+  float: left;
+}
+.team-imgs li {
+  font-size: 1.3em;
+  text-indent: 30px;
+  font-family: 'Open Sans', sans-serif;
+}
+.imgs-container {
+  background-color: #eaeaea;
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+.team-imgs {
+  width: 100%;
+}
+#first-imgs, #second-imgs{
+
+}
+
+@media screen and (min-width: 600px) {
+  /* hamburger menu */
+  .x {
+    display: none;
+  }
+  #logo {
     height: 6em;
     width: 6em;
-    position: relative;
-    background-color: #FF851B;
-    padding: 1em;
-    border-radius: 3em;
-    border: 3px solid #FF4136;
-    margin-left: 10%;
   }
   #logo h1 {
     font-size: 1.2em;
-    color: white;
-    font-family: 'Baloo Tammudu', cursive;
   }
-
-  ul {
+  header #logo {
+    height: 6em;
+    width: 6em;
+    position: relative;
+    margin-left: 10%;
+  }
+  legend {
+    font-size: 2em;
+  }
+  .icon-menu-items {
     width: 20em;
     font-size: 1.2em;
     font-family: 'Mukta Mahee', sans-serif;
@@ -33,60 +188,13 @@
     right: 10px;
     opacity: .75;
   }
-
-  li {
-    display: inline-block;
-    padding-left: 50px;
+  .icon-menu {
+    float: right;
+    margin-top: 20px;
+    margin-right: 10px;
+    width: 3em;
+    height: 3em;
   }
-
-  legend {
-    font-size: 2em;
-    font-family: 'Merriweather', serif;
-    color: white;
-    padding: .5em;
-    font-weight: bolder;
-    background-color: #0074d9;
-    opacity: .85;
-  }
-  input[type="text"] {
-    display: block;
-    margin: 0;
-    width: 100%;
-    font-family: sans-serif;
-    font-size: 18px;
-    appearance: none;
-    box-shadow: none;
-    border-radius: none;
-    padding: 10px;
-    border: solid 1px #dcdcdc;
-    transition: box-shadow 0.3s, border 0.3s;
-    opacity: .85;
-  }
-  input[type="text"]:focus {
-    border: solid 1px #707070;
-    box-shadow: 0 0 5px 1px #969696;
-  }
-  .button {
-    display: inline-block;
-    position: relative;
-    margin: 10px;
-    padding: 10px 20px;
-    text-align: center;
-    background: #FF851B;
-    font-size: 1em;
-    font-family: 'Sanchez', serif;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-  }
-  .x {
-    display: none;
-  }
-  .show {
-    display: inline;
-  }
-
   #map {
     height: 600px;
     width: 90%;
@@ -94,18 +202,17 @@
     margin-top: 5%;
     margin-bottom: 5%;
   }
-
-  .bottom {
-    font-size: 30px;
-    color: white;
-    text-align: center;
-    padding-top: 10px;
+  /* about page */
+  .imgs-container {
+    background-color: #eaeaea;
+    height: 600px;
     width: 100%;
-    height: 50px;
-    background-color: #FF851B;
+    display: flex;
   }
-}
+  .team-imgs {
+    display: block;
+    width: 45%;
+    margin: 0 2.5%;
 
-strong {
-  font-weight: bold;
+  }
 }
