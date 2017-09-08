@@ -96,8 +96,9 @@ app.get('/meals/find', (request, response) => {
 })
 
 // loads up the database functions at the bottom of the page
-loadDB();
-//cleanMeals();
+// this was turned off for our demo, the strech goal was to put this on a process that runs nightly
+//loadDB();
+
 
 // deploys app to the target port and sends a message to the server console
 app.listen(PORT, function() {
@@ -190,8 +191,8 @@ function loadDB() {
       longitude VARCHAR(255)
     );`
   )
-  // .then(loadMeals)
-  // .then(cleanMeals)
-  .then(console.log('load complete?'))
+  .then(loadMeals)
+  .then(cleanMeals)
+  .then(console.log('load complete!'))
   .catch(console.error);
 }
