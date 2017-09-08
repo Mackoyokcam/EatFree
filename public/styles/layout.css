@@ -115,5 +115,5 @@ main section {
 }
 
 main footer {
-  display: none;
+  display: inline-block;
 }
