@@ -1,111 +1,184 @@
-@media screen and (min-width: 600px) {
-  body {
-    width: 100%;
-    height: 100%;
-  }
+/* Mobile */
+.icon-menu {
+  float: right;
+  margin-top: 15px;
+  margin-right: 10px;
+  width: 2em;
+  height: 2em;
+  position: relative;
+  z-index: 1;
+}
 
-  header #logo {
-    text-align: center;
-    float: left;
-    height: 6em;
-    width: 6em;
-    position: relative;
-    background-color: #FF851B;
-    padding: 1em;
-    border-radius: 3em;
-    border: 3px solid #FF4136;
-    margin-left: 10%;
-  }
-  #logo h1 {
-    font-size: 1.2em;
-    color: white;
-    font-family: 'Baloo Tammudu', cursive;
-  }
+.menuLines {
+  width: 2em;
+  height: 5px;
+  margin-top: 3px;
+  background-color: white;
+}
 
-  ul {
-    width: 20em;
-    font-size: 1.2em;
-    font-family: 'Mukta Mahee', sans-serif;
-    color: white;
-    display: inline-block;
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    opacity: .75;
-  }
+header #logo {
+  text-align: center;
+  height: 5em;
+  width: 5em;
+  position: absolute;
+  float: left;
+  left: 0px;
+  background-color: #FF851B;
+  padding: 1em;
+  border-radius: 3em;
+  border: 3px solid #FF4136;
+  margin-left: 5%;
+  margin-top: 5%;
+}
 
-  li {
-    display: inline-block;
-    padding-left: 50px;
-  }
+#logo h1 {
+  font-size: 15px;
+  color: white;
+  font-family: 'Baloo Tammudu', cursive;
+}
 
-  legend {
-    font-size: 2em;
-    font-family: 'Merriweather', serif;
-    color: white;
-    padding: .5em;
-    font-weight: bolder;
-    background-color: #0074d9;
-    opacity: .85;
-  }
-  input[type="text"] {
-    display: block;
-    margin: 0;
-    width: 100%;
-    font-family: sans-serif;
-    font-size: 18px;
-    appearance: none;
-    box-shadow: none;
-    border-radius: none;
-    padding: 10px;
-    border: solid 1px #dcdcdc;
-    transition: box-shadow 0.3s, border 0.3s;
-    opacity: .85;
-  }
-  input[type="text"]:focus {
-    border: solid 1px #707070;
-    box-shadow: 0 0 5px 1px #969696;
-  }
-  .button {
-    display: inline-block;
-    position: relative;
-    margin: 10px;
-    padding: 10px 20px;
-    text-align: center;
-    background: #FF851B;
-    font-size: 1em;
-    font-family: 'Sanchez', serif;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-  }
-  .x {
-    display: none;
-  }
-  .show {
-    display: inline;
-  }
+legend {
+  font-size: 1em;
+  font-family: 'Merriweather', serif;
+  color: white;
+  padding: .5em;
+  font-weight: bolder;
+  background-color: #0074d9;
+  opacity: .85;
+}
 
-  #map {
-    height: 600px;
-    width: 90%;
-    margin: 0px auto;
-    margin-top: 5%;
-    margin-bottom: 5%;
-  }
+nav {
+  width: 100vw;
+  height: 50vh;
+  background-color: white;
+  opacity: 0.5;
+}
 
-  .bottom {
-    font-size: 30px;
-    color: white;
-    text-align: center;
-    padding-top: 10px;
-    width: 100%;
-    height: 50px;
-    background-color: #FF851B;
-  }
+nav ul {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  text-align: center;
+}
+
+nav ul li {
+  display: block;
+  line-height: 2em;
+  color: black;
+  font-weight: bold;
+  font-family: 'Mukta Mahee', sans-serif;
+  border-bottom: 1px solid black;
 }
 
 strong {
   font-weight: bold;
+}
+
+/*@keyframes animeShow {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+*/
+
+.show {
+  display: none;
+}
+
+.changeColor {
+  background-color: black;
+}
+
+.button {
+  display: inline-block;
+  position: relative;
+  margin-top: 1%;
+  padding: 10px;
+  text-align: center;
+  background: #FF851B;
+  font-size: 1em;
+  font-family: 'Sanchez', serif;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+}
+
+form {
+  position: sticky;
+  margin: 0px auto;
+  clear: right;
+}
+
+input[type="text"] {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: .75em;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  padding: .5em;
+  border: solid 1px #dcdcdc;
+  transition: box-shadow 0.3s, border 0.3s;
+  opacity: .85;
+}
+
+input[type="text"]:focus {
+  border: solid 1px #707070;
+  box-shadow: 0 0 5px 1px #969696;
+}
+
+/* Medium Screen */
+@media screen and (min-width: 600px) {
+  .icon-menu {
+    display: none;
+  }
+
+  .show {
+    display: block;
+  }
+
+  nav {
+    width: auto;
+    height: 100%;
+    background-color: inherit;
+    opacity: 1;
+  }
+
+  nav ul {
+    position: relative;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: inline;
+    opacity: .75;
+    float: right;
+    margin-right: 5%;
+  }
+
+  nav ul li {
+    display: inline;
+    margin-right: 2em;
+    line-height: normal;
+    border: none;
+    color: white;
+  }
+
+  header #logo {
+    margin-top: 0;
+  }
+
+
+  legend {
+    font-size: 2em;
+  }
+
+  input[type="text"] {
+    font-size: 1em;
+  }
 }

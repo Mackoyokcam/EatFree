@@ -28,6 +28,7 @@ div div {
   margin-top: 3px;
   background-color: white;
 }
+
 @keyframes animeShow {
   0% {
     transform: scaleY(0);
@@ -36,6 +37,7 @@ div div {
     transform: scaleY(1);
   }
 }
+
 .show {
   position: absolute;
   right: 10px;
@@ -44,6 +46,7 @@ div div {
   display: inline;
   animation: 5s animeShow;
 }
+
 .icon-menu {
   float: right;
   margin-top: 15px;
