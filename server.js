@@ -176,8 +176,8 @@ function loadDB() {
     );`
   )
   // TODO this will take us to load data into the database above here
-  .then(loadMeals)
-  .then(cleanMeals)
+  // .then(loadMeals)
+  // .then(cleanMeals)
   .then(console.log('load complete?'))
   .catch(console.error);
 }
