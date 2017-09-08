@@ -9,7 +9,7 @@
     float: left;
     height: 6em;
     width: 6em;
-    position: absolute;
+    position: relative;
     background-color: #FF851B;
     padding: 1em;
     border-radius: 3em;
@@ -85,5 +85,13 @@
   }
   .show {
     display: inline;
+  }
+
+  #map {
+    height: 600px;
+    width: 90%;
+    margin: 0px auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
   }
 }
